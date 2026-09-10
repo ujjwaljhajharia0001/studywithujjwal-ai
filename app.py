@@ -109,7 +109,11 @@ st.markdown("""
 with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     st.markdown("### ⚙️ Master Control Hub")
-    api_key = st.text_input("Gemini API Key", type="password", placeholder="Paste API Key...")
+    api_key = st.secrets.get("GEMINI_API_KEY", "")
+    if not api_key:
+        api_key = st.text_input("Gemini API Key", type="password", placeholder="Paste API Key...")
+    else:
+        st.success("✅ Cloud API Key Active")
     st.markdown("---")
     
     global_lang = st.selectbox(
